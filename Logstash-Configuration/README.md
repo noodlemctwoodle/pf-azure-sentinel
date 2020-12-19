@@ -27,7 +27,7 @@
 
         sudo apt install apt-transport-https
 
-6. Add Elasticsearch|Logstash|Kibana Repositories (version 7+)
+6. Add LogstashRepositories (version 7+)
 
         echo "deb https://artifacts.elastic.co/packages/7.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-7.x.list
 
@@ -38,6 +38,10 @@
 8. Install Java 14 LTS
 
        sudo apt install openjdk-14-jre-headless
+
+9. Install Logstash
+
+      sudo apt-get update && sudo apt-get install logstash
 
 ### Install MaxMind Database
 
