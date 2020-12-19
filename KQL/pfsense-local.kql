@@ -1,5 +1,5 @@
 // PFSesne Local Traffic
-chspfs01_logstash_CL
+pfsense_logstash_CL
 | where TimeGenerated > ago(1m)
 | where tags_s !contains "GeoIP_Destination"
 | extend event_created_t = TimeGenerated
