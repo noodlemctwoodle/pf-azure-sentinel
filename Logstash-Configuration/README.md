@@ -95,29 +95,29 @@ Create Required Directories
 
 3. Download the following configuration files (Required)
 
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/01-inputs.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/02-types.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/03-filter.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/05-firewall.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/07-interfaces.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/10-apps.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/30-geoip.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/45-cleanup.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/50-outputs.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/07-interfaces.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 
 4. Download the following configuration files (Optional)
 
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/35-rules-desc.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/36-ports-desc.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
 
 5. Download the grok pattern (Required)
 
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
 
 6. Download the Database(s) (Optional)
 
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/Azure-Sentinel-pfSense/master/logstash/configuration/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 
 7. Configure Firewall Rule Database (Optional)
     Go to your pfSense GUI and go to Firewall -> Rules.
