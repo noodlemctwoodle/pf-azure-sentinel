@@ -180,6 +180,24 @@ Create Required Directories
             }
         }
 
+### Forwarding pfSense Logs to Logstash
+
+1. In pfSense navigate to Status -> System Logs -> Settings
+2. Log firewall default blocks (Optional)
+   a. Log packets matched from the default block rules in the ruleset
+   b. Log packets matched from the default pass rules put in the ruleset
+   c. Log packets blocked by 'Block Bogon Networks' rules
+   d. Log packets blocked by 'Block Private Networks' rules
+   e. Log errors from the web server process
+3. Remote Logging Options:
+   a. check "Send log messages to remote syslog server"
+   b. Select a specific interface to use for forwarding (Optional)
+   c. Select `IPv4` for IP Protocol
+   d. Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (eg 192.168.1.50:5140)
+   e. Under "Remote Syslog Contents" check "Everything"
+
+![pfsesne-settings](../.images/image3.png)
+
 ### Install Log Analytics Plugin
 
 1. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
