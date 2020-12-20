@@ -183,13 +183,15 @@ Create Required Directories
 ### Forwarding pfSense Logs to Logstash
 
 1. In pfSense navigate to Status -> System Logs -> Settings
-2. Log firewall default blocks (Optional)
+2. General Logging Options
+   - Show log entries in reverse order (newest entries on top)
+3. General Logging Options > Log firewall default blocks (optional)
    - Log packets matched from the default block rules in the ruleset
    - Log packets matched from the default pass rules put in the ruleset
    - Log packets blocked by 'Block Bogon Networks' rules
    - Log packets blocked by 'Block Private Networks' rules
    - Log errors from the web server process
-3. Remote Logging Options:
+4. Remote Logging Options:
    - check "Send log messages to remote syslog server"
    - Select a specific interface to use for forwarding (Optional)
    - Select `IPv4` for IP Protocol
