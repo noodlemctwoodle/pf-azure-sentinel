@@ -1,3 +1,5 @@
+![Anurag's github stats](https://github-readme-stats.vercel.app/api?username=noodlemctwoodle&show_icons=true&theme=dark)
+
 # pfSense Syslog to Azure Sentinel
 
 This project is something I have been attempting to get working for a while now and I wanted to share it with you.
