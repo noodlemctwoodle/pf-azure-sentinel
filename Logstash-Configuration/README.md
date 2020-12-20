@@ -254,7 +254,7 @@ Create Required Directories
 
 Using the query below we can query if we are getting logs with GeoIP information into Azure Sentinel
 
-    // PFSense GeoIp Traffic
+    // pfSense GeoIp Traffic
     pfsense_logstash_CL
     | where TimeGenerated > ago(1m)
     | where tags_s contains "GeoIP_Destination"
