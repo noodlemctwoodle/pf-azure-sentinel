@@ -231,7 +231,8 @@ Create Required Directories
 4. Wait for logs to arrive in Azure Sentinel
    - This can take up to 20 minutes
 
-![Azure-Sentinel](../.images/image2.png)
+   ![Azure-Sentinel](../.images/image2.png)
+
 5. Troubleshooting
 
         cat /var/log/logstash/logstash-plain.log
