@@ -127,11 +127,11 @@ Create Required Directories
     Go to your pfSense GUI and go to Firewall -> Rules.
 
     - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
-    - Block rules normaly have logging on, if you want to see good traffic also, enable logging for pass rules.
+    - Block rules normally have logging on, if you want to see good traffic also, enable logging for pass rules.
 
     Extract rule descriptions with associated tracking number (Optional & pfSense Only)
 
-    In pfSense and go to diganotics -> Command Prompt
+    In pfSense and go to diagnostics -> Command Prompt
 
     Enter the following command in the execute shell command box and click the execute button
 
@@ -145,7 +145,7 @@ Create Required Directories
         "58","NAT Redirect DNS TLS"
         "60","BypassVPN"
 
-    Copy the entire results to your clipboard and past within the rule-names.csv as follows:
+    Copy the entire results to your clipboard and paste within the rule-names.csv as follows:
 
         "Rule","Label"
         "55","NAT Redirect DNS"
@@ -160,7 +160,7 @@ Create Required Directories
 
         sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 
-9. Paste the the results from pfSense into the first blank line after "0","null"
+9. Paste the results from pfSense into the first blank line after "0","null"
 
     Example:
 
@@ -202,7 +202,7 @@ Create Required Directories
    - check "Send log messages to remote syslog server"
    - Select a specific interface to use for forwarding (Optional)
    - Select `IPv4` for IP Protocol
-   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (eg 192.168.1.50:5140)
+   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (e.g. 192.168.1.50:5140)
    - Under "Remote Syslog Contents" check "Everything"
 
 ![pfsesne-settings](../.images/image3.png)
@@ -254,7 +254,7 @@ Create Required Directories
 
 Using the query below we can query if we are getting logs with GeoIP information into Azure Sentinel
 
-    // PFSesne GeoIp Traffic
+    // PFSense GeoIp Traffic
     pfsense_logstash_CL
     | where TimeGenerated > ago(1m)
     | where tags_s contains "GeoIP_Destination"
