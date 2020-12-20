@@ -85,7 +85,7 @@
 
 1. Install Logstash
 
-      sudo apt update && sudo apt install logstash
+      sudo apt update && sudo apt install logstash -y
 
 2. Configuration
 Create Required Directories
