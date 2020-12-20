@@ -80,18 +80,19 @@
 
         00 17 * * 0 geoipupdate
 
-10. Install Logstash
-
-      sudo apt-get update && sudo apt-get install logstash
 
 ## Logstash Configuration
 
-1. Configuration
+1. Install Logstash
+
+      sudo apt update && sudo apt install logstash
+
+2. Configuration
 Create Required Directories
 
         sudo mkdir /etc/logstash/conf.d/{databases,patterns,templates}
 
-2. Download the following configuration files (Required)
+3. Download the following configuration files (Required)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
@@ -103,21 +104,21 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 
-3. Download the following configuration files (Optional)
+4. Download the following configuration files (Optional)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
 
-4. Download the grok pattern (Required)
+5. Download the grok pattern (Required)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
 
-5. Download the Database(s) (Optional)
+6. Download the Database(s) (Optional)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 
-6. Configure Firewall Rule Database (Optional)
+7. Configure Firewall Rule Database (Optional)
     Go to your pfSense GUI and go to Firewall -> Rules.
 
     - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
@@ -148,13 +149,13 @@ Create Required Directories
         "58","NAT Redirect DNS TLS"
         "60","BypassVPN"
 
-7. Update the logstash configuration (Optional & pfSense Only)
+8. Update the logstash configuration (Optional & pfSense Only)
 
     Go back to the server you installed Logstash.
 
         sudo nano /etc/logstash/conf.d/databases/rule-names.csv
 
-8. Paste the the results from pfSense into the first blank line after "0","null"
+9. Paste the the results from pfSense into the first blank line after "0","null"
 
     Example:
 
@@ -163,7 +164,7 @@ Create Required Directories
 
     You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
 
-9. Update firewall interfaces
+10. Update firewall interfaces
 
     Amend the 05-firewall.conf file
 
