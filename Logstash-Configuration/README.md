@@ -12,7 +12,7 @@
 
 ### Ubuntu 20.04 Server onPrem
   
-1. Install Ubuntu 20.04 on a Virtual Machine or Computer and update the OS
+1. Install Ubuntu Server 20.04 on a Virtual Machine or Computer and update the OS
 
         sudo apt update; sudo apt upgrade -y
 
