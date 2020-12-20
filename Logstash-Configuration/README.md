@@ -175,7 +175,9 @@ Create Required Directories
 
         sudo nano /etc/logstash/conf.d/05-firewall.conf
 
-    Adjust the interface name(s) to correspond with your hardware (e.g. the interface below is referenced as igb0 with a corresponding “Development” name for identification/filtering within pfELK). Add/remove sections, depending on the number of interfaces.
+    Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name below 
+    
+    Add/remove sections, depending on the number of interfaces you have.
 
         ### Change interface as desired ###
         if [interface][name] =~ /^igb0$/ {
