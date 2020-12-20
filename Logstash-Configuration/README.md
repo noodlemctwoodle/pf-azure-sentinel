@@ -2,13 +2,13 @@
 
 ## Table of Contents
 
-    - [Configure Ubuntu server](#ubuntu-2004-server-onprem)
-    - [Install MaxMind and configuration](#install-maxmind-database)
-    - [Install and configure Logstash](#logstash-configuration)
-    - [Forwarding pfSense logs](#forwarding-pfsense-logs-to-logstash)
-    - [Install Logstash Azure Analytics plugin](#install-log-analytics-plugin)
-    - [View logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
-    - [Query the logs in Azure Sentinel](#query-logs-in-azure-sentinel)
+  - [Configure Ubuntu server](#ubuntu-2004-server-onprem)
+  - [Install MaxMind and configuration](#install-maxmind-database)
+  - [Install and configure Logstash](#logstash-configuration)
+  - [Forwarding pfSense logs](#forwarding-pfsense-logs-to-logstash)
+  - [Install Logstash Azure Analytics plugin](#install-log-analytics-plugin)
+  - [View logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
+  - [Query the logs in Azure Sentinel](#query-logs-in-azure-sentinel)
 
 ### Ubuntu 20.04 Server onPrem
   
