@@ -1,4 +1,4 @@
-// PFSesne Local Traffic
+// pfSesne Local Traffic
 pfsense_logstash_CL
 | where TimeGenerated > ago(1m)
 | where tags_s !contains "GeoIP_Destination"
