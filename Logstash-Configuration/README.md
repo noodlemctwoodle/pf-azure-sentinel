@@ -1,6 +1,14 @@
 # LogStash > Azure Sentinel
 
-## Configure Logstash
+## Table of Contents
+
+    - [Configure Ubuntu server](#ubuntu-2004-server-onprem)
+    - [Install MaxMind and configuration](#install-maxmind-database)
+    - [Install and configure Logstash](#logstash-configuration)
+    - [Forwarding pfSense logs](#forwarding-pfsense-logs-to-logstash)
+    - [Install Logstash Azure Analytics plugin](#install-log-analytics-plugin)
+    - [View logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
+    - [Query the logs in Azure Sentinel](#query-logs-in-azure-sentinel)
 
 ### Ubuntu 20.04 Server onPrem
   
@@ -14,7 +22,7 @@
 
 3. Configuration Date/Time Zone
 
-    - The box running this configuration will reports firewall logs based on its clock. The command below will set the timezone to Eastern Standard Time (EST). 
+    - The box running this configuration will reports firewall logs based on its clock. The command below will set the timezone to Eastern Standard Time (EST).
     - To view available timezones type `sudo timedatectl list-timezones`
 
           sudo timedatectl set-timezone Europe/London
@@ -34,8 +42,6 @@
 7. Install Java 14 LTS
 
        sudo apt install openjdk-14-jre-headless
-
-
 
 ### Install MaxMind Database
 
@@ -80,8 +86,7 @@
 
         00 17 * * 0 geoipupdate
 
-
-## Logstash Configuration
+### Logstash Configuration
 
 1. Install Logstash
 
@@ -230,11 +235,35 @@ Create Required Directories
 
         sudo systemctl restart logstash
 
-4. Wait for logs to arrive in Azure Sentinel
+4. Troubleshooting
+
+        cat /var/log/logstash/logstash-plain.log
+
+### View pfSense Logs in Azure Sentinel
+
+1. Wait for logs to arrive in Azure Sentinel
    - This can take up to 20 minutes
 
    ![Azure-Sentinel](../.images/image2.png)
 
-5. Troubleshooting
+### Query logs in Azure Sentinel
 
-        cat /var/log/logstash/logstash-plain.log
+Using the query below we can query if we are getting logs with GeoIP information into Azure Sentinel
+
+    // PFSesne GeoIp Traffic
+    pfsense_logstash_CL
+    | where TimeGenerated > ago(1m)
+    | where tags_s contains "GeoIP_Destination"
+    | extend event_created_t = TimeGenerated
+    | extend ruleName = iif(rule_uuid_s == '1572780236', 'Rule ID Name',
+      iif(rule_uuid_s == '1572814498', 'Rule ID Name',
+      iif(rule_uuid_s == '1572814518', 'Rule ID Name',
+      iif(rule_uuid_s == '1572820907', 'Rule ID Name',
+      iif(rule_uuid_s == '1572822148', 'Rule ID Name',
+      iif(rule_uuid_s == '1572822176', 'Rule ID Name',
+      iff(rule_uuid_s == '1572822195', 'Rule ID Name',
+      iff(rule_uuid_s == '1575628181', 'Rule ID Name',
+    ''))))))))
+    | project TimeGenerated, interface_alias_s, network_name_s, interface_name_s, source_ip_s, source_port_s, source_geo_region_name_s, source_geo_country_iso_code_s,
+        source_geo_country_name_s, destination_ip_s, destination_port_s, destination_geo_region_name_s, destination_geo_country_code3_s,
+        network_direction_s, event_action_s, event_reason_s, ruleName, destination_service_s, network_transport_s
