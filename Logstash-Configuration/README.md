@@ -1,4 +1,4 @@
-# LogStash > Azure Sentinel
+# pfSense > LogStash > Azure Sentinel
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@
 
         sudo apt update; sudo apt upgrade -y
 
-2. Disabling Swap - Swapping should be disabled for performance and stability.
+2. Disabling Swap - Swapping should be disabled for performance and stability. (optional)
 
        sudo swapoff -a
 
@@ -90,7 +90,7 @@
 
 1. Install Logstash
 
-      sudo apt update && sudo apt install logstash -y
+        sudo apt update && sudo apt install logstash -y
 
 2. Configuration
 Create Required Directories
