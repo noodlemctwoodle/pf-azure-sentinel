@@ -184,17 +184,17 @@ Create Required Directories
 
 1. In pfSense navigate to Status -> System Logs -> Settings
 2. Log firewall default blocks (Optional)
-   a. Log packets matched from the default block rules in the ruleset
-   b. Log packets matched from the default pass rules put in the ruleset
-   c. Log packets blocked by 'Block Bogon Networks' rules
-   d. Log packets blocked by 'Block Private Networks' rules
-   e. Log errors from the web server process
+   - Log packets matched from the default block rules in the ruleset
+   - Log packets matched from the default pass rules put in the ruleset
+   - Log packets blocked by 'Block Bogon Networks' rules
+   - Log packets blocked by 'Block Private Networks' rules
+   - Log errors from the web server process
 3. Remote Logging Options:
-   a. check "Send log messages to remote syslog server"
-   b. Select a specific interface to use for forwarding (Optional)
-   c. Select `IPv4` for IP Protocol
-   d. Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (eg 192.168.1.50:5140)
-   e. Under "Remote Syslog Contents" check "Everything"
+   - check "Send log messages to remote syslog server"
+   - Select a specific interface to use for forwarding (Optional)
+   - Select `IPv4` for IP Protocol
+   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (eg 192.168.1.50:5140)
+   - Under "Remote Syslog Contents" check "Everything"
 
 ![pfsesne-settings](../.images/image3.png)
 
@@ -228,6 +228,10 @@ Create Required Directories
 
         sudo systemctl restart logstash
 
-4. Troubleshooting
+4. Wait for logs to arrive in Azure Sentinel
+   - This can take up to 20 minutes
+
+![Azure-Sentinel](../.images/image2.png)
+5. Troubleshooting
 
         cat /var/log/logstash/logstash-plain.log
