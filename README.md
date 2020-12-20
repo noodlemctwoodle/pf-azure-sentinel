@@ -4,7 +4,7 @@ This project is something I have been attempting to get working for a while now 
 
 ## Configuration
 
-For Deployments please use the [Logstash Guide](Logstash-Configuration/README.md) of the [Microsoft Tech Community](link) post
+For Deployments please use the [Logstash Guide](Logstash-Configuration/README.md) or the [Microsoft Tech Community](https://techcommunity.microsoft.com/t5/azure-sentinel/pfsense-syslog-to-azure-sentinel-guide/m-p/2004352) post
 
 This project exposes the following pfSense data points to Azure Sentinel:
 
