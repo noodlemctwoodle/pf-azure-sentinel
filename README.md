@@ -1,4 +1,4 @@
-# pfSense Syslog to Azure Sentinel
+# pfSense/OPNsnse syslog to Azure Sentinel
 
 This project is something I have been attempting to get working for a while now and I wanted to share it with you.
 
@@ -6,7 +6,7 @@ This project is something I have been attempting to get working for a while now 
 
 For Deployments please use the [Logstash Guide](Logstash-Configuration/README.md)
 
-This project exposes the following pfSense data points to Azure Sentinel:
+This project exposes the following pfSense/OPNsense data points to Azure Sentinel:
 
 </br>
 

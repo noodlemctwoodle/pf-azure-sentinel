@@ -10,9 +10,9 @@
   - [View logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
   - [Query the logs in Azure Sentinel](#query-logs-in-azure-sentinel)
 
-### Ubuntu 20.04 Server onPrem
+### Ubuntu (v18.04-v20.04+) Server onPrem
   
-1. Install Ubuntu Server 20.04 on a Virtual Machine or Computer and update the OS
+1. Install Ubuntu Server (v18.04-v20.04+) on a Virtual Machine or Computer and update the OS
 
         sudo apt update; sudo apt upgrade -y
 
@@ -45,46 +45,7 @@
 
 ### Install MaxMind Database
 
-1. Add MaxMind Repository (Ubuntu Only)
-
-       sudo add-apt-repository ppa:maxmind/ppa
-
-2. Install MaxMind (Ubuntu Only)
-
-       sudo apt install geoipupdate
-
-3. Configure MaxMind
-
-    Create a [MaxMind Account](https://www.maxmind.com/en/geolite2/signup)
-
-    Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
-
-        sudo nano /etc/GeoIP.conf
-
-4. Modify lines 7 & 8 as follows (without < >):
-
-        AccountID <Input Your Account ID>
-        LicenseKey <Input Your LicenseKey>
-
-5. Modify line 13 as follows:
-
-        EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
-
-6. Modify line 18 as follows:
-
-        DatabaseDirectory /usr/share/GeoIP/
-
-7. Download Maxmind Databases
-
-        sudo geoipupdate
-
-8. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
-
-        sudo nano /etc/cron.weekly/geoipupdate
-
-9. Add the following and save/exit
-
-        00 17 * * 0 geoipupdate
+1. Follow the steps [here](https://github.com/3ilson/pfsense-azure-sentinel/wiki/How-To:-MaxMind-via-GeoIP-with-Azure-Sentinel), to install and utilize MaxMind. Otherwise thebuilt-in GeoIP from Elastic will be utilized.
 
 ### Logstash Configuration
 
@@ -124,10 +85,9 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 
 7. Configure Firewall Rule Database (Optional)
-    Go to your pfSense GUI and go to Firewall -> Rules.
-
-    - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
-    - Block rules normally have logging on, if you want to see good traffic also, enable logging for pass rules.
+    - Go to your pfSense GUI and go to Firewall -> Rules.
+      - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
+      - Block rules normally have logging on, if you want to see good traffic also, enable logging for pass rules.
 
     Extract rule descriptions with associated tracking number (Optional & pfSense Only)
 
@@ -182,7 +142,7 @@ Create Required Directories
         "0","null"
         "1","Input Firewall Description Here
 
-    You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
+    You must repeat step 1 (Rules) alternatively, you may utilize the [rule description script generator](https://github.com/3ilson/pfsense-azure-sentinel/wiki/Editing-References:-Rule-Description-Script-Generator), automating steps 7-9
 
 10. Update firewall interfaces
 
