@@ -45,46 +45,7 @@
 
 ### Install MaxMind Database
 
-1. Add MaxMind Repository (Ubuntu Only)
-
-       sudo add-apt-repository ppa:maxmind/ppa
-
-2. Install MaxMind (Ubuntu Only)
-
-       sudo apt install geoipupdate
-
-3. Configure MaxMind
-
-    Create a [MaxMind Account](https://www.maxmind.com/en/geolite2/signup)
-
-    Login to your MaxMind Account; navigate to "My License Key" under "Services" and Generate new license key
-
-        sudo nano /etc/GeoIP.conf
-
-4. Modify lines 7 & 8 as follows (without < >):
-
-        AccountID <Input Your Account ID>
-        LicenseKey <Input Your LicenseKey>
-
-5. Modify line 13 as follows:
-
-        EditionIDs GeoLite2-City GeoLite2-Country GeoLite2-ASN
-
-6. Modify line 18 as follows:
-
-        DatabaseDirectory /usr/share/GeoIP/
-
-7. Download Maxmind Databases
-
-        sudo geoipupdate
-
-8. Add cron (automatically updates Maxmind everyweek on Sunday at 1700hrs)
-
-        sudo nano /etc/cron.weekly/geoipupdate
-
-9. Add the following and save/exit
-
-        00 17 * * 0 geoipupdate
+1. Follow the steps [here](), to install and utilize MaxMind. Otherwise thebuilt-in GeoIP from Elastic will be utilized.
 
 ### Logstash Configuration
 
