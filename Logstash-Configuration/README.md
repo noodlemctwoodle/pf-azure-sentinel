@@ -1,4 +1,4 @@
-# pfSense > LogStash > Azure Sentinel
+# pfSense/OPNsense > LogStash > Azure Sentinel
 
 ## Table of Contents
 

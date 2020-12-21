@@ -1,4 +1,4 @@
-# pfSense/OPNsnse syslog to Azure Sentinel
+# pfSense/OPNsense syslog to Azure Sentinel
 
 This project is something I have been attempting to get working for a while now and I wanted to share it with you.
 
