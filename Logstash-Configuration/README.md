@@ -10,9 +10,9 @@
   - [View logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
   - [Query the logs in Azure Sentinel](#query-logs-in-azure-sentinel)
 
-### Ubuntu 20.04 Server onPrem
+### Ubuntu v18.04-v20.04+ Server onPrem
   
-1. Install Ubuntu Server 20.04 on a Virtual Machine or Computer and update the OS
+1. Install Ubuntu Server v18.04-v20.04+ on a Virtual Machine or Computer and update the OS
 
         sudo apt update; sudo apt upgrade -y
 
