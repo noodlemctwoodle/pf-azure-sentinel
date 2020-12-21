@@ -85,10 +85,9 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
 
 7. Configure Firewall Rule Database (Optional)
-    Go to your pfSense GUI and go to Firewall -> Rules.
-
-    - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
-    - Block rules normally have logging on, if you want to see good traffic also, enable logging for pass rules.
+    - Go to your pfSense GUI and go to Firewall -> Rules.
+      - Ensure the rules have a description, this is the text you will see in Azure Sentinel.
+      - Block rules normally have logging on, if you want to see good traffic also, enable logging for pass rules.
 
     Extract rule descriptions with associated tracking number (Optional & pfSense Only)
 
@@ -128,7 +127,7 @@ Create Required Directories
         "0","null"
         "1","Input Firewall Description Here
 
-    You must repeat step 1 (Rules)
+    You must repeat step 1 (Rules) alternatively, you may utilize the [rule description script generator](https://github.com/3ilson/pfsense-azure-sentinel/wiki/Editing-References:-Rule-Description-Script-Generator), automating steps 7-9
 
 10. Update firewall interfaces
 
