@@ -23,6 +23,7 @@ This project exposes the following pfSense/OPNsense data points to Azure Sentine
 |observer_name_s|observer_product_s|observer_type_s|observer_serial_number_s|pf_transport_data_length_s|pf_packet_length_s
 |pf_tcp_options_s|pf_tcp_sequence_number_s|pf_tcp_flags_s|pf_ipv4_tos_s|pf_ipv4_packet_id_s|pf_ipv4_offset_s
 |pf_ipv4_flags_s|tags_s - "pf" "GeoIP_Source" "GeoIP_Destination"|event_action_s|event_reason_s|event_created_t|_timestamp_t
+| rule_alias_s | rule_description_s | destination_as_organization_name_s
 
 </br>
 
