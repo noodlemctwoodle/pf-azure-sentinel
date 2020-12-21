@@ -26,7 +26,7 @@ This project exposes the following pfSense/OPNsense data points to Azure Sentine
 
 </br>
 
-Using the Azure Sentinel [Functions](KQL/pfsesne-geoIP.kql) we can break down this data into readable formats
+Using the Azure Sentinel [KQL](KQL/pfSense/) we can break down this data into readable formats
 
 ![pfsense-GeoIP](.images/image1.png)
 
