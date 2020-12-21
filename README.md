@@ -30,6 +30,8 @@ Using the Azure Sentinel [Functions](KQL/pfsesne-geoIP.kql) we can break down th
 
 ![pfsense-GeoIP](.images/image1.png)
 
+Optionally you can also install the [Linux OMS Agent](Linux-OMS-Agent/README.md) to collect performance stats from the log collector. This is useful for creating analytics rules that will monitor for disk space alerts and excessive CPU usage.
+
 ## Credits
 
 This project is only possible with the work carried out by [a3ilson](https://github.com/pfelk/pfelk) and his pfELK project to parse the pfSense log files.

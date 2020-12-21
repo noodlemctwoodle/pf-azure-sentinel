@@ -133,9 +133,24 @@ Create Required Directories
 
     In pfSense and go to diagnostics -> Command Prompt
 
-    Enter the following command in the execute shell command box and click the execute button
+    Enter one of the following command in the execute shell command box and click the execute button
+    
+    Option1:
 
         pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/"\1","\2"/' | sort -t ' ' -k 1,1 -u
+
+    Option2:
+
+        pfctl -vv -sr | grep label | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
+
+    Option3:
+
+        pfctl -vv -sr | grep label | grep log | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
+
+    Option4:
+
+        pfctl -vv -sr | grep USER_RULE | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
+
 
     The results will look something like this:
 

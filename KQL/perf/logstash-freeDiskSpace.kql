@@ -1,0 +1,6 @@
+Perf
+| where TimeGenerated > ago(30d)
+| where ObjectName ==  "Logical Disk"
+| where CounterName == "Free Megabytes"
+| summarize avg_free_disk_MB=avg(CounterValue) by Computer, InstanceName
+| render barchart  
