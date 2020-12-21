@@ -1,9 +1,8 @@
 # pfSense/OPNsense syslog to Azure Sentinel
 
-This project brings in syslog messages from pfSense or OPNsense, parses them using Logstash GROK, adds additional context to the log messages and then sends them to Azure Sentinel.
-
 As there is no out-of-the-box Azure Sentinel connector for either pfSense or OPNsense this project fills that void and allows you full control over your logs. 
 
+It can be used to collect syslog messages from pfSense or OPNsense, parse them using Logstash GROK, add additional context to the log messages such as GeoIP information and then send them to Azure Sentinel.
 
 ## Configuration
 
