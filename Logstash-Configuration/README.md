@@ -45,7 +45,20 @@
 
 ### Install MaxMind Database
 
-1. Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilise MaxMind. 
+1. Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilise MaxMind. Otherwise the built-in GeoIP from Elastic will be utilised.
+
+2. To leverage MaxMind, remove all instances of `#MMR#` in `/etc/logstash/conf.d/30-geoip.conf`.
+
+Example:
+
+        geoip {
+          default_database_type => 'ASN'
+          database => "/usr/share/GeoIP/GeoLite2-ASN.mmdb"
+          #cache_size => 5000
+          source => "[source][ip]"
+          target => "[source][as]"
+        }
+
 
 ### Logstash Configuration
 
@@ -70,14 +83,21 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 
-4. Download the following configuration files (Optional)
-
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
-
-5. Download the grok pattern (Required)
+4. Download the grok pattern (Required)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+
+5. Download the following configuration files (Optional)
+
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
+
+    `pfSense`
+
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/pfSense/35-rules-desc.conf -P /etc/logstash/conf.d/
+
+    `OPNsense`
+
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/OPNsense/35-rules-desc.conf -P /etc/logstash/conf.d/
 
 6. Download the Database(s) (Optional)
 
@@ -95,22 +115,7 @@ Create Required Directories
 
     Enter one of the following command in the execute shell command box and click the execute button
     
-    Option1:
-
-        pfctl -vv -sr | grep USER_RULE | sed 's/@\([^(]*\).*"USER_RULE: *\([^"]*\).*/"\1","\2"/' | sort -t ' ' -k 1,1 -u
-
-    Option2:
-
         pfctl -vv -sr | grep label | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
-
-    Option3:
-
-        pfctl -vv -sr | grep label | grep log | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
-
-    Option4:
-
-        pfctl -vv -sr | grep USER_RULE | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
-
 
     The results will look something like this:
 
@@ -232,17 +237,8 @@ Using the query below we can query if we are getting logs with GeoIP information
     // pfSense GeoIp Traffic
     pfsense_logstash_CL
     | where TimeGenerated > ago(1m)
-    | where tags_s contains "GeoIP_Destination"
+    | where tags_s contains "GeoIP"
     | extend event_created_t = TimeGenerated
-    | extend ruleName = iif(rule_uuid_s == '1572780236', 'Rule ID Name',
-      iif(rule_uuid_s == '1572814498', 'Rule ID Name',
-      iif(rule_uuid_s == '1572814518', 'Rule ID Name',
-      iif(rule_uuid_s == '1572820907', 'Rule ID Name',
-      iif(rule_uuid_s == '1572822148', 'Rule ID Name',
-      iif(rule_uuid_s == '1572822176', 'Rule ID Name',
-      iff(rule_uuid_s == '1572822195', 'Rule ID Name',
-      iff(rule_uuid_s == '1575628181', 'Rule ID Name',
-    ''))))))))
     | project TimeGenerated, interface_alias_s, network_name_s, interface_name_s, source_ip_s, source_port_s, source_geo_region_name_s, source_geo_country_iso_code_s,
         source_geo_country_name_s, destination_ip_s, destination_port_s, destination_geo_region_name_s, destination_geo_country_code3_s,
         network_direction_s, event_action_s, event_reason_s, ruleName, destination_service_s, network_transport_s
