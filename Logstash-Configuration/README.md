@@ -128,7 +128,7 @@ Create Required Directories
         "0","null"
         "1","Input Firewall Description Here
 
-    You must repeat step 1 (Rules) if you add new rules in pfSense and then restart logstash
+    You must repeat step 1 (Rules)
 
 10. Update firewall interfaces
 
