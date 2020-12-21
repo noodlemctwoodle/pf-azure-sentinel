@@ -6,7 +6,7 @@ This project is something I have been attempting to get working for a while now 
 
 For Deployments please use the [Logstash Guide](Logstash-Configuration/README.md)
 
-This project exposes the following pfSense data points to Azure Sentinel:
+This project exposes the following pfSense/OPNsense data points to Azure Sentinel:
 
 </br>
 
