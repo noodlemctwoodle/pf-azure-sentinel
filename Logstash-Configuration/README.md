@@ -45,7 +45,7 @@
 
 ### Install MaxMind Database
 
-1. Follow the steps [here](https://github.com/3ilson/pfsense-azure-sentinel/wiki/How-To:-MaxMind-via-GeoIP-with-Azure-Sentinel), to install and utilize MaxMind. Otherwise thebuilt-in GeoIP from Elastic will be utilized.
+1. Follow the steps [here](https://github.com/3ilson/pfsense-azure-sentinel/wiki/How-To:-MaxMind-via-GeoIP-with-Azure-Sentinel), to install and utilize MaxMind. 
 
 ### Logstash Configuration
 
