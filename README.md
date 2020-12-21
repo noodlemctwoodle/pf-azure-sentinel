@@ -1,6 +1,9 @@
 # pfSense/OPNsense syslog to Azure Sentinel
 
-This project is something I have been attempting to get working for a while now and I wanted to share it with you.
+This project brings in syslog messages from pfSense or OPNsense, parses them using Logstash GROK, adds additional context to the log messages and then sends them to Azure Sentinel.
+
+As there is no out-of-the-box Azure Sentinel connector for either pfSense or OPNsense this project fills that void and allows you full control over your logs. 
+
 
 ## Configuration
 
@@ -37,15 +40,16 @@ This project exposes the following pfSense/OPNsense data points to Azure Sentine
 
 </br>
 
+## KQL
+
 Using the Azure Sentinel [KQL](KQL/pfSense/) we can break down this data into readable formats
 
 ![pfsense-GeoIP](.images/image1.png)
 
-Optionally you can also install the [Linux OMS Agent](Linux-OMS-Agent/README.md) to collect performance stats from the log collector. This is useful for creating analytics rules that will monitor for disk space alerts and excessive CPU usage.
+## Linux Performance Monitoring
+
+Optionally you can also install the [Linux OMS Agent](Linux-OMS-Agent/README.md) to collect performance stats from the Logstash log collector. This is useful for creating analytics rules that will monitor for disk space alerts and excessive CPU usage.
 
 ## Credits
 
 This project is only possible with the work carried out by [a3ilson](https://github.com/pfelk/pfelk) and his pfELK project to parse the pfSense log files.
-
-
-
