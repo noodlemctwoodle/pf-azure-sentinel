@@ -10,7 +10,7 @@ This project exposes the following pfSense/OPNsense data points to Azure Sentine
 
 </br>
 
-| | | | | | |
+|Data points in Azure Sentinel| | | | | |
 |---|---|---|---|---|---|
 |_timestamp_t|_version_s|destination_as_ip_s|destination_as_number_d|destination_as_organization_name_s
 |destination_geo_city_name_s|destination_geo_continent_code_s|destination_geo_country_code3_s|destination_geo_country_iso_code_s|destination_geo_country_name_s
