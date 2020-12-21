@@ -45,7 +45,7 @@
 
 ### Install MaxMind Database
 
-1. Follow the steps [here](https://github.com/3ilson/pfsense-azure-sentinel/wiki/How-To:-MaxMind-via-GeoIP-with-Azure-Sentinel), to install and utilise MaxMind. 
+1. Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilise MaxMind. 
 
 ### Logstash Configuration
 
@@ -142,7 +142,7 @@ Create Required Directories
         "0","null"
         "1","Input Firewall Description Here
 
-    You must repeat step 1 (Rules) alternatively, you may utilize the [rule description script generator](https://github.com/3ilson/pfsense-azure-sentinel/wiki/Editing-References:-Rule-Description-Script-Generator), automating steps 7-9
+    You must repeat step 1 (Rules) alternatively, you may utilize the [rule description script generator](https://github.com/pfelk/pfelk/wiki/References:-Rule-Descriptions#rule-sync--generator-scripts), automating steps 7-9
 
 10. Update firewall interfaces
 
