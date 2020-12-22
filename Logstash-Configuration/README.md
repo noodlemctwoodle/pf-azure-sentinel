@@ -166,6 +166,17 @@ Create Required Directories
             }
         }
 
+11. Setup Suricata Logging on pfSense (optional)
+
+    To enable Suricata to send logs to Logstash use this guide on the [PFELK wiki](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense) and ensure that you have the following config in `01-inputs.conf`
+
+        ### Suricata ###
+        tcp {
+            id => "pfAz-suricata"
+            type => "suricata"
+            port => 5041
+        }
+
 ### Forwarding pfSense Logs to Logstash
 
 1. In pfSense navigate to Status -> System Logs -> Settings
