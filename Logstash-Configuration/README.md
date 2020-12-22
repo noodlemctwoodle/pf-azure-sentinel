@@ -237,8 +237,8 @@ Using the query below we can query if we are getting logs with GeoIP information
     // pfSense GeoIp Traffic
     pfsense_logstash_CL
     | where TimeGenerated > ago(1m)
-    | where tags_s contains "GeoIP"
+    | where tags_s contains "GeoIP_Destination"
     | extend event_created_t = TimeGenerated
     | project TimeGenerated, interface_alias_s, network_name_s, interface_name_s, source_ip_s, source_port_s, source_geo_region_name_s, source_geo_country_iso_code_s,
         source_geo_country_name_s, destination_ip_s, destination_port_s, destination_geo_region_name_s, destination_geo_country_code3_s,
-        network_direction_s, event_action_s, event_reason_s, ruleName, destination_service_s, network_transport_s
+        network_direction_s, event_action_s, event_reason_s, rule_description_s, destination_service_s, network_transport_s
