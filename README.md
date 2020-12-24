@@ -5,7 +5,7 @@
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=plastic)](https://www.paypal.me/noodlemctwoodle)
 
-# pfSense/OPNsense syslog to Azure Sentinel
+# pfSense/OPNsense syslog, Suricata & HA-Proxy to Azure Sentinel
 
 As there is no out-of-the-box Azure Sentinel connector for either pfSense or OPNsense this project fills that void and allows you full control over your logs. 
 
