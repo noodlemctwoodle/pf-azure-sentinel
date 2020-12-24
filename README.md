@@ -1,6 +1,6 @@
 
 [![Star](https://img.shields.io/github/stars/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/stargazers) 
-[![Fork](https://img.shields.io/github/forks/noodlemctwoodle/pf-azure-sentinelt?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/network/members)
+[![Fork](https://img.shields.io/github/forks/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/network/members)
 [![Issues](https://img.shields.io/github/issues/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)
 
 # pfSense/OPNsense syslog to Azure Sentinel
