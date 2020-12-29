@@ -1,8 +1,19 @@
-# pfSense/OPNsense syslog to Azure Sentinel
+
+[![Star](https://img.shields.io/github/stars/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/stargazers) 
+[![Fork](https://img.shields.io/github/forks/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/network/members)
+[![Issues](https://img.shields.io/github/issues/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)
+
+[![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=plastic)](https://www.paypal.me/noodlemctwoodle)
+
+# pfSense/OPNsense syslog, Suricata & HA-Proxy to Azure Sentinel
 
 As there is no out-of-the-box Azure Sentinel connector for either pfSense or OPNsense this project fills that void and allows you full control over your logs. 
 
 It can be used to collect syslog messages from pfSense or OPNsense, parse them using Logstash GROK, add additional context to the log messages such as GeoIP information and then send them to Azure Sentinel.
+
+## Credits
+
+This project is only possible with the work carried out by [a3ilson](https://github.com/pfelk/pfelk) and his pfELK project to parse the pfSense log files.
 
 ## Configuration
 
@@ -49,6 +60,4 @@ Using the Azure Sentinel [KQL](KQL/pfSense/) we can break down this data into re
 
 Optionally you can also install the [Linux OMS Agent](Linux-OMS-Agent/README.md) to collect performance stats from the Logstash log collector. This is useful for creating analytics rules that will monitor for disk space alerts and excessive CPU usage.
 
-## Credits
 
-This project is only possible with the work carried out by [a3ilson](https://github.com/pfelk/pfelk) and his pfELK project to parse the pfSense log files.

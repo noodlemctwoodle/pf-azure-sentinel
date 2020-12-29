@@ -76,10 +76,9 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/01-inputs.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/05-firewall.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/07-interfaces.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/10-apps.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/05-apps.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/40-interfaces.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 
@@ -155,7 +154,7 @@ Create Required Directories
 
         sudo nano /etc/logstash/conf.d/05-firewall.conf
 
-    Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field
+    Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field.
     
     Add/remove sections, depending on the number of interfaces you have.
 
@@ -165,6 +164,17 @@ Create Required Directories
             add_field => { "[interface][alias]" => "WAN" }
             add_field => { "[network][name]" => "ISP Provider" }
             }
+        }
+
+11. Setup Suricata Logging on pfSense (optional)
+
+    To enable Suricata to send logs to Logstash use this guide on the [PFELK wiki](https://github.com/pfelk/pfelk/wiki/How-To:-Suricata-on-pfSense) and ensure that you have the following config in `01-inputs.conf`
+
+        ### Suricata ###
+        tcp {
+            id => "pfAz-suricata"
+            type => "suricata"
+            port => 5041
         }
 
 ### Forwarding pfSense Logs to Logstash
