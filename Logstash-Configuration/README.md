@@ -51,12 +51,11 @@
 
 Example:
 
+      if "IP_Private_Source" not in [tags] {
         geoip {
-          default_database_type => 'ASN'
-          database => "/usr/share/GeoIP/GeoLite2-ASN.mmdb"
-          #cache_size => 5000
           source => "[source][ip]"
-          target => "[source][as]"
+          database => "/usr/share/GeoIP/GeoLite2-City.mmdb"
+          target => "[source][geo]"
         }
 
 
