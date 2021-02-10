@@ -207,7 +207,7 @@ Make a note of your Azure Configuration, you will need it to configure the the L
 
 3. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
 
-    sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
+        sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
 
 4. Edit the Logstash configuration
     sudo nano /etc/logstash/conf.d/50-outputs.conf
@@ -222,11 +222,9 @@ Make a note of your Azure Configuration, you will need it to configure the the L
 
     Using the information we previously noted down from the `Log Analytics workspace` settings, use it to populated the `50-outputs.conf` file
 
-    a. customer_id = `WORKSPACE ID`
-
-    b. shared_key = `Primary Key`
-
-    c. log_type =  `A custom name of your choosing1` like `pfSense_logstash`
+    - customer_id = `"WORKSPACE ID"`
+    - shared_key = `"Primary Key"`
+    - log_type =  `"pfSense_logstash"` (This can be any name of your choosing)
 
     `Example:`
 
