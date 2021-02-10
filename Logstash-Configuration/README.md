@@ -234,7 +234,7 @@ Create Required Directories
 
 ### View pfSense Logs in Azure Sentinel
 
-1. Wait for logs to arrive in Azure Sentinel
+1. Wait for logs to arrive in Azure Sentinel, you will find it in Logs > Custom Logs
    - This can take up to 20 minutes
 
    ![Azure-Sentinel](../.images/image2.png)
