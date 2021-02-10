@@ -234,8 +234,13 @@ Create Required Directories
 
 ### View pfSense Logs in Azure Sentinel
 
-1. Wait for logs to arrive in Azure Sentinel, you will find it in Logs > Custom Logs
-   - This can take up to 20 minutes
+1. Wait for logs to arrive in Azure Sentinel
+   
+  The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs,as shown below
+
+  `You do not need to configure a custom log source in Azure Sentinel "Advanced settings"`
+  
+   - It can take up to 20 minutes for the Custom Logs table to be populated.
 
    ![Azure-Sentinel](../.images/image2.png)
 
