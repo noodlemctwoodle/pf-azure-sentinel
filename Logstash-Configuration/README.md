@@ -196,21 +196,20 @@ Create Required Directories
 
 ![pfsesne-settings](../.images/image3.png)
 
-### Install Log Analytics Plugin
+## Install and Configure the Log Analytics Plugin For Logstash
 
-1. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
+Make a note of your Azure Configuration, you will need it to configure the the Log Analytics Plugin for logstash in `step 4`.
 
-    sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
-
-2. Make a note of your Azure Configuration, you will need it to configure the the Log Analytics Plugin for logstash.
-
-    a. Login to Azure and browse to your "Log Analytics workspace" settings
-
-    b. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
+1. Login to Azure and browse to your `Log Analytics workspace` settings
+2. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
 
     ![settings](../.images/image6.png)
 
-3. Edit the Logstash configuration
+3. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
+
+    sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
+
+4. Edit the Logstash configuration
     sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
@@ -220,6 +219,8 @@ Create Required Directories
                 log_type => "<Name of Log>"
             }
         }
+
+    Using the information we previously noted down from the `Log Analytics workspace` settings, use it to populated the `50-outputs.conf` file
 
     a. customer_id = `WORKSPACE ID`
 
@@ -237,15 +238,15 @@ Create Required Directories
             }
         }
 
-4. Restart LogStash
+5. Restart LogStash
 
         sudo systemctl restart logstash
 
-5. Troubleshooting
+6. Troubleshooting
 
         cat /var/log/logstash/logstash-plain.log
 
-### View pfSense Logs in Azure Sentinel
+## View pfSense Logs in Azure Sentinel
 
 1. Wait for logs to arrive in Azure Sentinel
 
