@@ -202,24 +202,32 @@ Create Required Directories
 
     sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
 
-2. Configuration
-  a. Login to Azure and browse to your "Log Analytics workspace" settings
-  b. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
-  
-  
-    
+2. Make a note of your Azure Configuration, you will need it to configure the the Log Analytics Plugin for logstash.
 
+    a. Login to Azure and browse to your "Log Analytics workspace" settings
+
+    b. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
+
+    ![settings](../.images/image6.png)
+
+3. Edit the Logstash configuration
     sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
             azure_loganalytics {
-                customer_id => "<OMS WORKSPACE ID>"
-                shared_key => "<CLIENT AUTH KEY>"
-                log_type => "<LOG TYPE NAME>"
+                customer_id => "<WORKSPACE ID>"
+                shared_key => "<Primary Key>"
+                log_type => "<Name of Log>"
             }
         }
 
-    Example:
+    a. customer_id = `WORKSPACE ID`
+
+    b. shared_key = `Primary Key`
+
+    c. log_type =  `A custom name of your choosing1` like `pfSense_logstash`
+
+    `Example:`
 
         output {
             azure_loganalytics {
@@ -229,23 +237,23 @@ Create Required Directories
             }
         }
 
-3. Restart LogStash
+4. Restart LogStash
 
         sudo systemctl restart logstash
 
-4. Troubleshooting
+5. Troubleshooting
 
         cat /var/log/logstash/logstash-plain.log
 
 ### View pfSense Logs in Azure Sentinel
 
 1. Wait for logs to arrive in Azure Sentinel
-   
+
   The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs
 
   `You do not need to configure a custom log source in Azure Sentinel "Advanced settings"`
   
-   - It can take up to 20 minutes for the Custom Logs table to be populated.
+- It can take up to 20 minutes for the Custom Logs table to be populated.
 
    ![Azure-Sentinel](../.images/image2.png)
 
