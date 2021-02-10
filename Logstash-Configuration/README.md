@@ -236,7 +236,7 @@ Create Required Directories
 
 1. Wait for logs to arrive in Azure Sentinel
    
-  The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs,as shown below
+  The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs
 
   `You do not need to configure a custom log source in Azure Sentinel "Advanced settings"`
   
