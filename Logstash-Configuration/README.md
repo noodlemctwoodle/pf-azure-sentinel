@@ -201,7 +201,7 @@ Create Required Directories
 Make a note of your Azure Configuration, you will need it to configure the the Log Analytics Plugin for logstash in `step 4`.
 
 1. Login to Azure and browse to your `Log Analytics workspace` settings
-2. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
+2. Select `Agents Management` and make a note of your `Workspace ID` and `Primary Key`
 
     ![settings](../.images/image6.png)
 
