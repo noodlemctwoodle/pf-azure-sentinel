@@ -203,6 +203,11 @@ Create Required Directories
     sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
 
 2. Configuration
+  a. Login to Azure and browse to your "Log Analytics workspace" settings
+  b. Select `Agents Management` and make a note of you `Workspace ID` and `Primary Key`
+  
+  
+    
 
     sudo nano /etc/logstash/conf.d/50-outputs.conf
 
