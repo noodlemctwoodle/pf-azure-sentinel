@@ -191,10 +191,14 @@ Create Required Directories
    - check "Send log messages to remote syslog server"
    - Select a specific interface to use for forwarding (Optional)
    - Select `IPv4` for IP Protocol
-   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (e.g. 192.168.1.50:5140)
+   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (e.g. 192.168.1.50:5141)
    - Under "Remote Syslog Contents" check "Everything"
 
 ![pfsesne-settings](../.images/image3.png)
+
+5. Confirm that syslogs are being collected by listening to port 5141
+
+        sudo tcpdump -A -ni any port 5141 -vv
 
 ## Install and Configure the Log Analytics Plugin For Logstash
 
