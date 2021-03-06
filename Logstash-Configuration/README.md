@@ -209,35 +209,32 @@ Make a note of your Azure Configuration, you will need it to configure the the L
 
     ![settings](../.images/image6.png)
 
-3. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
+3. Run the command to install the [Microsoft Logstash LogAnalytics](https://github.com/Azure/Azure-Sentinel/tree/master/DataConnectors/microsoft-logstash-output-azure-loganalytics) plugin
 
-        sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
+        sudo /usr/share/logstash/bin/logstash-plugin install microsoft-logstash-output-azure-loganalytics
 
 4. Edit the Logstash configuration
 
         sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
-            azure_loganalytics {
-                customer_id => "<WORKSPACE ID>"
-                shared_key => "<Primary Key>"
-                log_type => "<Name of Log>"
+          microsoft-logstash-output-azure-loganalytics {
+              workspace_id => "<WORKSPACE ID>" # <your workspace id>
+              workspace_key => "<Primary Key>" # <your workspace key>
+              custom_log_table_name => "<Name of Log>"
             }
         }
+        
 
     Using the information we previously noted down from the `Log Analytics workspace` settings, use it to populated the `50-outputs.conf` file
-
-    - customer_id = `"WORKSPACE ID"`
-    - shared_key = `"Primary Key"`
-    - log_type =  `"pfSense_logstash"` (This can be any name of your choosing)
 
     `Example:`
 
         output {
-            azure_loganalytics {
-                customer_id => "1234567-7654321-345678-12334445"
-                shared_key => "kflsdjkgfslfjsdf0ife0f0efe0-09f0we9f-ef-w00e-0w-f0w-0fwe-f0d0-w=="
-                log_type => "pfsense_logstash"
+          microsoft-logstash-output-azure-loganalytics {
+              workspace_id => "4g5tad2b-a4u4-147v-a4r7-23148a5f2c21" # <your workspace id>
+              workspace_key => "u/saRtY0JGHJ4Ce93g5WQ3Lk50ZnZ8ugfd74nk78RPLPP/KgfnjU5478Ndh64sNfdrsMni975HJP6lp==" # <your workspace key>
+              custom_log_table_name => "tableName"
             }
         }
 
