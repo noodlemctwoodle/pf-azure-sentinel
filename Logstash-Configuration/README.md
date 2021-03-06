@@ -241,9 +241,10 @@ Make a note of your Azure Configuration, you will need it to configure the the L
             }
         }
 
-5. Restart LogStash
+5. Start LogStash
 
-        sudo systemctl restart logstash
+        sudo systemctl enalbe logstash
+        sudo systemctl start logstash
 
 6. Troubleshooting
 
