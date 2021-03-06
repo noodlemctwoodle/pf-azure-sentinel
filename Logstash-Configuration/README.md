@@ -151,7 +151,7 @@ Create Required Directories
 
     Amend the 05-firewall.conf file
 
-        sudo nano /etc/logstash/conf.d/05-firewall.conf
+        sudo nano /etc/logstash/conf.d/40-interfaces.conf
 
     Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field.
     
