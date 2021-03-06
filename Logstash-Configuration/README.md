@@ -214,7 +214,8 @@ Make a note of your Azure Configuration, you will need it to configure the the L
         sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
 
 4. Edit the Logstash configuration
-    sudo nano /etc/logstash/conf.d/50-outputs.conf
+    
+        sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
             azure_loganalytics {
