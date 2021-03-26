@@ -43,7 +43,9 @@
 
        sudo apt install openjdk-14-jre-headless
 
-### Install MaxMind Database
+### Install MaxMind Database (Optional)
+
+Maxmind isn't required for GeoIP lookups as this is also handled by Logstash.
 
 1. Follow the steps [here](https://github.com/pfelk/pfelk/wiki/How-To:-MaxMind-via-GeoIP-with-pfELK), to install and utilise MaxMind. Otherwise the built-in GeoIP from Elastic will be utilised.
 
@@ -57,7 +59,6 @@ Example:
           database => "/usr/share/GeoIP/GeoLite2-City.mmdb"
           target => "[source][geo]"
         }
-
 
 ### Logstash Configuration
 
@@ -76,31 +77,29 @@ Create Required Directories
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/02-types.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/03-filter.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/05-apps.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/20-interfaces.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/30-geoip.conf -P /etc/logstash/conf.d/
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/40-interfaces.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/35-rules-desc.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/37-enhanced_user_agent.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/38-enhanced_url.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf -P /etc/logstash/conf.d/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/49-enhanced_private.conf -P /etc/logstash/conf.d/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/50-outputs.conf -P /etc/logstash/conf.d/
 
 4. Download the grok pattern (Required)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/patterns/pfelk.grok -P /etc/logstash/conf.d/patterns/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/patterns/openvpn.grok -P /etc/logstash/conf.d/patterns/
 
 5. Download the following configuration files (Optional)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/36-ports-desc.conf -P /etc/logstash/conf.d/
 
-    `pfSense`
-
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/pfSense/35-rules-desc.conf -P /etc/logstash/conf.d/
-
-    `OPNsense`
-
-        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/OPNsense/35-rules-desc.conf -P /etc/logstash/conf.d/
-
 6. Download the Database(s) (Optional)
 
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/rule-names.csv -P /etc/logstash/conf.d/databases/
         sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/service-names-port-numbers.csv -P /etc/logstash/conf.d/databases/
+        sudo wget https://raw.githubusercontent.com/noodlemctwoodle/pfsense-azure-sentinel/main/Logstash-Configuration/etc/logstash/conf.d/databases/private-hostnames.csv -P /etc/logstash/conf.d/databases/
 
 7. Configure Firewall Rule Database (Optional)
     - Go to your pfSense GUI and go to Firewall -> Rules.
@@ -112,7 +111,7 @@ Create Required Directories
     In pfSense and go to diagnostics -> Command Prompt
 
     Enter one of the following command in the execute shell command box and click the execute button
-    
+
         pfctl -vv -sr | grep label | sed -r 's/@([[:digit:]]+).*(label "|label "USER_RULE: )(.*)".*/"\1","\3"/g' | sort -V -u | awk 'NR==1{$0="\"Rule\",\"Label\""RS$0}7'
 
     The results will look something like this:
@@ -154,7 +153,7 @@ Create Required Directories
         sudo nano /etc/logstash/conf.d/05-firewall.conf
 
     Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field.
-    
+
     Add/remove sections, depending on the number of interfaces you have.
 
         ### Change interface as desired ###
@@ -205,40 +204,41 @@ Make a note of your Azure Configuration, you will need it to configure the the L
 
     ![settings](../.images/image6.png)
 
-3. Run the command to install the [Azure Log Analytics](https://github.com/yokawasa/logstash-output-azure_loganalytics) plugin
+3. Run the command to install the [Microsoft Logstash LogAnalytics](https://github.com/Azure/Azure-Sentinel/tree/master/DataConnectors/microsoft-logstash-output-azure-loganalytics) plugin
 
-        sudo /usr/share/logstash/bin/logstash-plugin install logstash-output-azure_loganalytics
+        sudo /usr/share/logstash/bin/logstash-plugin install microsoft-logstash-output-azure-loganalytics
 
 4. Edit the Logstash configuration
     sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
-            azure_loganalytics {
-                customer_id => "<WORKSPACE ID>"
-                shared_key => "<Primary Key>"
-                log_type => "<Name of Log>"
+            microsoft-logstash-output-azure-loganalytics {
+                workspace_id => "<WORKSPACE ID>" # <your workspace id>
+                workspace_key => "<Primary Key>" # <your workspace key>
+                custom_log_table_name => "<Name of Log>"
+                }
             }
-        }
 
     Using the information we previously noted down from the `Log Analytics workspace` settings, use it to populated the `50-outputs.conf` file
 
-    - customer_id = `"WORKSPACE ID"`
-    - shared_key = `"Primary Key"`
-    - log_type =  `"pfSense_logstash"` (This can be any name of your choosing)
+    - workspace_id = `"WORKSPACE ID"`
+    - workspace_key = `"Primary Key"`
+    - custom_log_table_name =  `"firewall_log"` (This can be any name of your choosing)
 
     `Example:`
 
         output {
-            azure_loganalytics {
-                customer_id => "1234567-7654321-345678-12334445"
-                shared_key => "kflsdjkgfslfjsdf0ife0f0efe0-09f0we9f-ef-w00e-0w-f0w-0fwe-f0d0-w=="
-                log_type => "pfsense_logstash"
+            microsoft-logstash-output-azure-loganalytics {
+                workspace_id => "1234567-7654321-345678-12334445"
+                workspace_key => "kflsdjkgfslfjsdf0ife0f0efe0-09f0we9f-ef-w00e-0w-f0w-0fwe-f0d0-w=="
+                custom_log_table_name => "firewall_log"
+                }
             }
-        }
 
-5. Restart LogStash
+5. Enable and Start LogStash
 
-        sudo systemctl restart logstash
+        sudo systemctl enable logstash
+        sudo systemctl start logstash
 
 6. Troubleshooting
 
