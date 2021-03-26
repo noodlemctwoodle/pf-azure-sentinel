@@ -11,6 +11,13 @@ As there is no out-of-the-box Azure Sentinel connector for either pfSense or OPN
 
 It can be used to collect syslog messages from pfSense or OPNsense, parse them using Logstash GROK, add additional context to the log messages such as GeoIP information and then send them to Azure Sentinel.
 
+## Changes
+
+2021.03
+
+- Updated configuration based on pfELK changes
+- Moved to Microsoft Logstash Azure-Log Analytics Plugin
+
 ## Credits
 
 This project is only possible with the work carried out by [a3ilson](https://github.com/pfelk/pfelk) and his pfELK project to parse the pfSense log files.
