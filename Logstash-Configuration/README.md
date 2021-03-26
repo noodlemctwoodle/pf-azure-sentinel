@@ -150,7 +150,7 @@ Create Required Directories
 
     Amend the 05-firewall.conf file
 
-        sudo nano /etc/logstash/conf.d/05-firewall.conf
+        sudo nano /etc/logstash/conf.d/40-interfaces.conf
 
     Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field.
 
@@ -190,10 +190,14 @@ Create Required Directories
    - check "Send log messages to remote syslog server"
    - Select a specific interface to use for forwarding (Optional)
    - Select `IPv4` for IP Protocol
-   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (e.g. 192.168.1.50:5140)
+   - Enter the Logstash server local IP into the field `Remote log servers` with port 5140 (e.g. 192.168.1.50:5141)
    - Under "Remote Syslog Contents" check "Everything"
 
 ![pfsesne-settings](../.images/image3.png)
+
+5. Confirm that syslogs are being collected by listening to port 5141
+
+        sudo tcpdump -A -ni any port 5141 -vv
 
 ## Install and Configure the Log Analytics Plugin For Logstash
 
@@ -209,7 +213,8 @@ Make a note of your Azure Configuration, you will need it to configure the the L
         sudo /usr/share/logstash/bin/logstash-plugin install microsoft-logstash-output-azure-loganalytics
 
 4. Edit the Logstash configuration
-    sudo nano /etc/logstash/conf.d/50-outputs.conf
+
+        sudo nano /etc/logstash/conf.d/50-outputs.conf
 
         output {
             microsoft-logstash-output-azure-loganalytics {
