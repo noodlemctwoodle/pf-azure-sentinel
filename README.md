@@ -59,5 +59,3 @@ Using the Azure Sentinel [KQL](KQL/pfSense/) we can break down this data into re
 ## Linux Performance Monitoring
 
 Optionally you can also install the [Linux OMS Agent](Linux-OMS-Agent/README.md) to collect performance stats from the Logstash log collector. This is useful for creating analytics rules that will monitor for disk space alerts and excessive CPU usage.
-
-
