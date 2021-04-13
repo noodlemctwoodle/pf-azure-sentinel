@@ -148,9 +148,9 @@ Create Required Directories
 
 10. Update firewall interfaces
 
-    Amend the 05-firewall.conf file
+    Amend the 20-interfaces.conf file
 
-        sudo nano /etc/logstash/conf.d/40-interfaces.conf
+        sudo nano /etc/logstash/conf.d/20-interfaces.conf
 
     Adjust the interface name(s) `igb0` to correspond with your hardware, the interface below is referenced as igb0 with a corresponding alias `WAN`, It is also possible to add a friendly name in the `[network][name]` field.
 
@@ -174,6 +174,10 @@ Create Required Directories
             type => "suricata"
             port => 5041
         }
+
+12. Amend 49-enhanced_private.conf, Line 34 to your local domain name.
+
+        sudo nano /etc/logstash/conf.d/49-enhanced_private.conf
 
 ### Forwarding pfSense Logs to Logstash
 
