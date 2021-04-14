@@ -318,6 +318,17 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     cat /var/log/logstash/logstash-plain.log
     ```
 
+    If you see this in `logstash-plain.log` you have a configuration error in one of the config files in `/etc/logstash/conf.d`
+
+  ```BASH
+  [2021-04-13T08:52:58,325][INFO ][logstash.runner ] Log4j configuration path used is: /etc/logstash/log4j2.properties 
+  [2021-04-13T08:52:58,342][INFO ][logstash.runner ] Starting Logstash {"logstash.version"=>"7.12.0", "jruby.version"=>"jruby 9.2.13.0 (2.5.7) 2020-08-03 9a89c94bcc OpenJDK 64-Bit Server VM 11.0.10+9 on 11.0.10+9 +indy +jit [linux-x86_64]"} 
+  [2021-04-13T08:52:59,955][INFO ][logstash.agent ] Successfully started Logstash API endpoint {:port=>9600} 
+  [2021-04-13T08:53:00,275][ERROR][logstash.agent ] Failed to execute action {:action=>LogStash::PipelineAction::Create/pipeline_id:main, :exception=>"LogStash::ConfigurationError", :message=>"Expected one of [ \\t\\r\\n], \"#\", \"input\", \"filter\", \"output\" at line 22, column 3 (byte 873) after ", :backtrace=>["/usr/share/logstash/logstash-core/lib/logstash/compiler.rb:32:in compile_imperative'", "org/logstash/execution/AbstractPipelineExt.java:184:in initialize'", "org/logstash/execution/JavaBasePipelineExt.java:69:in initialize'", "/usr/share/logstash/logstash-core/lib/logstash/java_pipeline.rb:47:in initialize'", "/usr/share/logstash/logstash-core/lib/logstash/pipeline_action/create.rb:52:in execute'", "/usr/share/logstash/logstash-core/lib/logstash/agent.rb:389:in block in converge_state'"]} 
+  [2021-04-13T08:53:00,410][INFO ][logstash.runner ] Logstash shut down. 
+  [2021-04-13T08:53:00,425][FATAL][org.logstash.Logstash ] Logstash stopped processing because of an error: (SystemExit) exit org.jruby.exceptions.SystemExit: (SystemExit) exit at org.jruby.RubyKernel.exit(org/jruby/RubyKernel.java:747) ~[jruby-complete-9.2.13.0.jar:?] at org.jruby.RubyKernel.exit(org/jruby/RubyKernel.java:710) ~[jruby-complete-9.2.13.0.jar:?] at usr.share.logstash.lib.bootstrap.environment.<main>(/usr/share/logstash/lib/bootstrap/environment.rb:89) ~[?:?]
+  ```
+
 ## View pfSense Logs in Azure Sentinel
 
 1. Wait for logs to arrive in Azure Sentinel
