@@ -9,6 +9,7 @@
     - [Logstash Configuration](#logstash-configuration)
     - [Forwarding pfSense Logs to Logstash](#forwarding-pfsense-logs-to-logstash)
   - [Install and Configure the Log Analytics Plugin For Logstash](#install-and-configure-the-log-analytics-plugin-for-logstash)
+    - [Troubleshooting](#troubleshooting)
   - [View pfSense Logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
     - [Query logs in Azure Sentinel](#query-logs-in-azure-sentinel)
 
@@ -312,7 +313,9 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     sudo systemctl start logstash
     ```
 
-6. Troubleshooting
+### Troubleshooting
+
+1. Once you have enabled the Logstash service and it has been started check `logstash-plain.log` to confirm there are no errors.
 
     ```BASH
     cat /var/log/logstash/logstash-plain.log
@@ -357,6 +360,8 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     [2021-04-13T16:10:20,310][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-haproxy] UDP listener started {:address=>"0.0.0.0:5190", :receive_buffer_bytes=>"106496", :queue_size=>"2000"}
     [2021-04-13T16:10:20,313][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-1] UDP listener started {:address=>"0.0.0.0:5140", :receive_buffer_bytes=>"106496", :queue_size=>"2000"}
     ```
+
+2. If you are unable to resolve any configuration problems please raise an [issue](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues) on GitHub
 
 ## View pfSense Logs in Azure Sentinel
 
