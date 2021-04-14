@@ -318,7 +318,7 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     cat /var/log/logstash/logstash-plain.log
     ```
 
-    If you see this in `logstash-plain.log` you have a configuration error in one of the config files in `/etc/logstash/conf.d`
+    If you see the error below in `logstash-plain.log` you have a configuration error. Please check any edits you have made to the config files in `/etc/logstash/conf.d/`
 
     ```BASH
     [2021-04-13T08:52:58,325][INFO ][logstash.runner ] Log4j configuration path used is: /etc/logstash/log4j2.properties 
