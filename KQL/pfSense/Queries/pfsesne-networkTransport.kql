@@ -1,0 +1,7 @@
+// Count by Network Transport
+pfsense_logstash_CL
+| where TimeGenerated > ago(1d)
+| where isnotempty(network_transport_s)
+| summarize count() by network_transport_s
+| sort by count_ desc
+| top 100 by count_

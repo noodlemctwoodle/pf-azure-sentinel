@@ -1,0 +1,6 @@
+// Count of Geo Destination Countries
+pfsense_logstash_CL
+| where TimeGenerated > ago(1d)
+| where isnotempty(destination_geo_country_name_s)
+| extend country = destination_geo_country_name_s
+| summarize count() by country
