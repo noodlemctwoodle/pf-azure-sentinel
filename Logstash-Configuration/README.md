@@ -347,6 +347,8 @@ pfsense_logstash_CL
     network_direction_s, event_action_s, event_reason_s, rule_description_s, destination_service_s, network_transport_s
 ```
 
+Additional queries for pfSense can be found [here](https://github.com/noodlemctwoodle/pf-azure-sentinel/tree/main/KQL/pfSense/Queries)
+
 ## Troubleshooting
 
 1. Once you have enabled the Logstash service and it has been started check `logstash-plain.log` to confirm there are no errors.
