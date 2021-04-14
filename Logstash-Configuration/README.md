@@ -9,9 +9,9 @@
     - [Logstash Configuration](#logstash-configuration)
     - [Forwarding pfSense Logs to Logstash](#forwarding-pfsense-logs-to-logstash)
   - [Install and Configure the Log Analytics Plugin For Logstash](#install-and-configure-the-log-analytics-plugin-for-logstash)
-    - [Troubleshooting](#troubleshooting)
-  - [View pfSense Logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
+    - [View pfSense Logs in Azure Sentinel](#view-pfsense-logs-in-azure-sentinel)
     - [Query logs in Azure Sentinel](#query-logs-in-azure-sentinel)
+  - [Troubleshooting](#troubleshooting)
 
 ### Ubuntu (v18.04-v20.04+) Server onPrem
   
@@ -313,7 +313,34 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     sudo systemctl start logstash
     ```
 
-### Troubleshooting
+### View pfSense Logs in Azure Sentinel
+
+1. Wait for logs to arrive in Azure Sentinel
+
+  The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs
+
+  `You do not need to configure a custom log source in Azure Sentinel "Advanced settings"`
+  
+- It can take up to 20 minutes for the Custom Logs table to be populated.
+
+    ![Azure-Sentinel](../.images/image2.png)
+
+### Query logs in Azure Sentinel
+
+Using the query below we can query if we are getting logs with GeoIP information into Azure Sentinel
+
+```BASH
+// pfSense GeoIp Traffic
+pfsense_logstash_CL
+| where TimeGenerated > ago(1m)
+| where tags_s contains "GeoIP_Destination"
+| extend event_created_t = TimeGenerated
+| project TimeGenerated, interface_alias_s, network_name_s, interface_name_s, source_ip_s, source_port_s, source_geo_region_name_s, source_geo_country_iso_code_s,
+    source_geo_country_name_s, destination_ip_s, destination_port_s, destination_geo_region_name_s, destination_geo_country_code3_s,
+    network_direction_s, event_action_s, event_reason_s, rule_description_s, destination_service_s, network_transport_s
+```
+
+## Troubleshooting
 
 1. Once you have enabled the Logstash service and it has been started check `logstash-plain.log` to confirm there are no errors.
 
@@ -362,30 +389,3 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     ```
 
 2. If you are unable to resolve any configuration problems please raise an [issue](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues) on GitHub
-
-## View pfSense Logs in Azure Sentinel
-
-1. Wait for logs to arrive in Azure Sentinel
-
-  The new custom log will be created automatically by the Azure Log Analytics plugin for Logstash. You should find the pfSense/opnSense table in Azure Sentinel > Logs > Custom   Logs
-
-  `You do not need to configure a custom log source in Azure Sentinel "Advanced settings"`
-  
-- It can take up to 20 minutes for the Custom Logs table to be populated.
-
-    ![Azure-Sentinel](../.images/image2.png)
-
-### Query logs in Azure Sentinel
-
-Using the query below we can query if we are getting logs with GeoIP information into Azure Sentinel
-
-```BASH
-// pfSense GeoIp Traffic
-pfsense_logstash_CL
-| where TimeGenerated > ago(1m)
-| where tags_s contains "GeoIP_Destination"
-| extend event_created_t = TimeGenerated
-| project TimeGenerated, interface_alias_s, network_name_s, interface_name_s, source_ip_s, source_port_s, source_geo_region_name_s, source_geo_country_iso_code_s,
-    source_geo_country_name_s, destination_ip_s, destination_port_s, destination_geo_region_name_s, destination_geo_country_code3_s,
-    network_direction_s, event_action_s, event_reason_s, rule_description_s, destination_service_s, network_transport_s
-```
