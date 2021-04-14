@@ -329,6 +329,35 @@ Make a note of your Azure Configuration, you will need it to configure the the L
     [2021-04-13T08:53:00,425][FATAL][org.logstash.Logstash ] Logstash stopped processing because of an error: (SystemExit) exit org.jruby.exceptions.SystemExit: (SystemExit) exit at org.jruby.RubyKernel.exit(org/jruby/RubyKernel.java:747) ~[jruby-complete-9.2.13.0.jar:?] at org.jruby.RubyKernel.exit(org/jruby/RubyKernel.java:710) ~[jruby-complete-9.2.13.0.jar:?] at usr.share.logstash.lib.bootstrap.environment.<main>(/usr/share/logstash/lib/bootstrap/environment.rb:89) ~[?:?]
     ```
 
+    When you configuration is working correctly your log file should look like this
+
+    ```BASH
+    [2021-04-13T16:10:02,158][INFO ][logstash.runner          ] Log4j configuration path used is: /etc/logstash/log4j2.properties
+    [2021-04-13T16:10:02,172][INFO ][logstash.runner          ] Starting Logstash {"logstash.version"=>"7.12.0", "jruby.version"=>"jruby 9.2.13.0 (2.5.7) 2020-08-03 9a89c94bcc OpenJDK 64-Bit Server VM 11.0.10+9 on 11.0.10+9 +indy +jit [linux-x86_64]"}
+    [2021-04-13T16:10:03,721][INFO ][logstash.agent           ] Successfully started Logstash API endpoint {:port=>9600}
+    [2021-04-13T16:10:10,438][INFO ][org.reflections.Reflections] Reflections took 44 ms to scan 1 urls, producing 23 keys and 47 values
+    [2021-04-13T16:10:12,879][INFO ][logstash.outputs.azureloganalytics][main] Azure Loganalytics configuration was found valid.
+    [2021-04-13T16:10:12,879][INFO ][logstash.outputs.azureloganalytics][main] Logstash Azure Loganalytics output plugin configuration was found valid
+    [2021-04-13T16:10:12,922][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-City.mmdb"}
+    [2021-04-13T16:10:12,952][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-ASN.mmdb"}
+    [2021-04-13T16:10:14,338][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-ASN.mmdb"}
+    [2021-04-13T16:10:14,344][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-ASN.mmdb"}
+    [2021-04-13T16:10:14,405][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-City.mmdb"}
+    [2021-04-13T16:10:14,611][INFO ][logstash.filters.geoip   ][main] Using geoip database {:path=>"/usr/share/logstash/vendor/bundle/jruby/2.5.0/gems/logstash-filter-geoip-6.0.5-java/vendor/GeoLite2-City.mmdb"}
+    [2021-04-13T16:10:15,404][INFO ][logstash.javapipeline    ][main] Starting pipeline {:pipeline_id=>"main", "pipeline.workers"=>16, "pipeline.batch.size"=>125, "pipeline.batch.delay"=>50, "pipeline.max_inflight"=>2000, "pipeline.sources"=>["/etc/logstash/conf.d/01-inputs.conf", "/etc/logstash/conf.d/02-types.conf", "/etc/logstash/conf.d/03-filter.conf", "/etc/logstash/conf.d/05-apps.conf", "/etc/logstash/conf.d/20-interfaces.conf", "/etc/logstash/conf.d/30-geoip.conf", "/etc/logstash/conf.d/35-rules-desc.conf", "/etc/logstash/conf.d/36-ports-desc.conf", "/etc/logstash/conf.d/37-enhanced_user_agent.conf", "/etc/logstash/conf.d/38-enhanced_url.conf", "/etc/logstash/conf.d/45-cleanup.conf", "/etc/logstash/conf.d/49-enhanced_private.conf", "/etc/logstash/conf.d/50-outputs.conf"], :thread=>"#<Thread:0x419d701a run>"}
+    [2021-04-13T16:10:19,968][INFO ][logstash.javapipeline    ][main] Pipeline Java execution initialization time {"seconds"=>4.56}
+    [2021-04-13T16:10:20,151][INFO ][logstash.inputs.beats    ][main] Starting input listener {:address=>"0.0.0.0:5044"}
+    [2021-04-13T16:10:20,172][INFO ][logstash.javapipeline    ][main] Pipeline started {"pipeline.id"=>"main"}
+    [2021-04-13T16:10:20,179][INFO ][logstash.inputs.tcp      ][main][pf-AzSentinel-suricata] Starting tcp input listener {:address=>"0.0.0.0:5040", :ssl_enable=>false}
+    [2021-04-13T16:10:20,221][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-1] Starting UDP listener {:address=>"0.0.0.0:5140"}
+    [2021-04-13T16:10:20,256][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-2] Starting UDP listener {:address=>"0.0.0.0:5141"}
+    [2021-04-13T16:10:20,256][INFO ][org.logstash.beats.Server][main][Beats] Starting server on port: 5044
+    [2021-04-13T16:10:20,288][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-haproxy] Starting UDP listener {:address=>"0.0.0.0:5190"}
+    [2021-04-13T16:10:20,308][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-2] UDP listener started {:address=>"0.0.0.0:5141", :receive_buffer_bytes=>"106496", :queue_size=>"2000"}
+    [2021-04-13T16:10:20,310][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-haproxy] UDP listener started {:address=>"0.0.0.0:5190", :receive_buffer_bytes=>"106496", :queue_size=>"2000"}
+    [2021-04-13T16:10:20,313][INFO ][logstash.inputs.udp      ][main][pf-AzSentinel-1] UDP listener started {:address=>"0.0.0.0:5140", :receive_buffer_bytes=>"106496", :queue_size=>"2000"}
+    ```
+
 ## View pfSense Logs in Azure Sentinel
 
 1. Wait for logs to arrive in Azure Sentinel
