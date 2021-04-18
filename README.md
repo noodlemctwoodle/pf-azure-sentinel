@@ -15,7 +15,7 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
 
 2021.04
 
-- Added pfSense Workbook v0.1
+- Added [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.1
 
 ![workbook](.images/sentinelWorkbook.gif)
 
