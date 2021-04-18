@@ -13,6 +13,12 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
 
 ## Changes
 
+2021.04
+
+- Added pfSense Workbook
+
+![workbook](.images/sentinelWorkbook.gif)
+
 2021.03
 
 - Updated configuration based on pfELK changes
