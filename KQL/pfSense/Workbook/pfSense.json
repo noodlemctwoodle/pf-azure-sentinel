@@ -132,7 +132,7 @@
                     "durationMs": 86400000
                   },
                   "value": {
-                    "durationMs": 1800000
+                    "durationMs": 3600000
                   }
                 },
                 {
@@ -187,20 +187,6 @@
                     "showDefault": false
                   },
                   "jsonData": "[\r\n { \"value\": \"Yes\", \"label\": \"Yes\"},\r\n { \"value\": \"No\", \"label\": \"No\", \"selected\":true },\r\n { \"value\": \"Change Log\", \"label\": \"Change Log\"}\r\n]"
-                },
-                {
-                  "id": "e3623b31-a25c-4b2a-8b0d-26fb5d58e212",
-                  "version": "KqlParameterItem/1.0",
-                  "name": "showSubnets",
-                  "label": "Show Subnets",
-                  "type": 10,
-                  "description": "Warning: Hiding Subnets will clear any defined values",
-                  "isRequired": true,
-                  "typeSettings": {
-                    "additionalResourceOptions": [],
-                    "showDefault": false
-                  },
-                  "jsonData": "[\r\n { \"value\": \"Yes\", \"label\": \"Yes\"},\r\n { \"value\": \"No\", \"label\": \"No\", \"selected\":true }\r\n]"
                 }
               ],
               "style": "above",
@@ -212,433 +198,42 @@
           {
             "type": 1,
             "content": {
-              "json": "# pfSense Dashboard\r\n\r\nCreated by noodlemctwoodle for use with [pf-Azure-Sentinel](https://github.com/noodlemctwoodle/pf-azure-sentinel)\r\n\r\n## Usage\r\n- Please select your Subscription and Workspace\r\n- Time Range: is the time you wish to query back to. i.e 7days from now, into the past.\r\n- Ensure that the pfSense table name is set to return data from Azure Sentinel.\r\n- To use Lateral Movement populate the Subnet and Thresholds fields\r\n\r\n### Isues \r\n\r\n- Please raise any issues or requests on [GitHub](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)\r\n\r\n\r\n\r\n"
+              "json": "# pfSense Dashboard\r\n\r\nCreated by noodlemctwoodle for use with [pf-Azure-Sentinel](https://github.com/noodlemctwoodle/pf-azure-sentinel)\r\n\r\n## Usage\r\n- Please select your Subscription and Workspace\r\n- Time Range: is the time you wish to query back to. i.e 7days from now, into the past.\r\n- Ensure that the pfSense table name is set to return data from Azure Sentinel.\r\n\r\n### Isues \r\n\r\n- Please raise any issues or requests on [GitHub](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)\r\n\r\n\r\n\r\n"
             },
             "customWidth": "40",
-            "conditionalVisibility": {
-              "parameterName": "help",
-              "comparison": "isEqualTo",
-              "value": "Yes"
-            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "help",
+                "comparison": "isEqualTo",
+                "value": "Yes"
+              },
+              {
+                "parameterName": "selectedTab",
+                "comparison": "isNotEqualTo",
+                "value": "threatHunting"
+              }
+            ],
             "name": "dashboardInformation"
           },
           {
             "type": 1,
             "content": {
-              "json": "# Change Log\r\n\r\n## v0.1 Initial Release\r\n\r\n- Added information for the following\r\n\t- Lateral movement\r\n\t- Aveage blocked connections\r\n\t- Data ingestion and costs\r\n\t- Network transport information\r\n\t- Traffic passed | blocked\r\n\t- Common services\r\n\t- Inbound blocked map\r\n\t- Top 5 countries inbound blocked\r\n\t- Top 5 countries outbound passed\r\n\t- Outbound passed map\r\n\r\n## Next Release\r\n- DNS"
+              "json": "# Change Log\r\n\r\n### v0.2.1 Initial Release (Alpha)\r\n\r\n- Added Tabs and split out visuals into:\r\n\t- Firewall\r\n\t- Unbound\r\n\t- Services\r\n\t- Inbound\r\n\t- Outbound\r\n\t- Threat Hunting.\r\n- Added Time Slice for common services\r\n- Added Unbound lookups\r\n\r\n### v0.1 Initial Release (Testing)\r\n- Added pfSense Workbook v0.1"
             },
             "customWidth": "30",
-            "conditionalVisibility": {
-              "parameterName": "help",
-              "comparison": "isEqualTo",
-              "value": "Change Log"
-            },
+            "conditionalVisibilities": [
+              {
+                "parameterName": "help",
+                "comparison": "isEqualTo",
+                "value": "Change Log"
+              },
+              {
+                "parameterName": "selectedTab",
+                "comparison": "isNotEqualTo",
+                "value": "threatHunting"
+              }
+            ],
             "name": "changeLog"
-          },
-          {
-            "type": 12,
-            "content": {
-              "version": "NotebookGroup/1.0",
-              "groupType": "editable",
-              "loadType": "always",
-              "items": [
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "802b9223-396f-4235-a922-3ec3eaebfaa7",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subnet1",
-                        "label": "Subnet",
-                        "type": 1,
-                        "value": "10.10.1.0/24",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "10.10.1.0/24"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "subnet1"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "4c93ce64-22d2-4419-b11d-080edd28ca72",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subnet2",
-                        "label": "Subnet",
-                        "type": 1,
-                        "value": "10.20.1.0/24",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "10.20.1.0/24"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "subnet2"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "c4d8065f-7b78-44d5-aa84-391eff45c561",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subnet3",
-                        "label": "Subnett",
-                        "type": 1,
-                        "value": "10.30.1.0/24",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "10.30.1.0/24"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "subnet3"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "4e93806b-64fa-4d95-af8b-683a16005702",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subnet4",
-                        "label": "Subnett",
-                        "type": 1,
-                        "value": "10.40.1.0/24",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "10.40.1.0/24"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "subnet4"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "9023700e-fee6-4a35-8876-2623911033fb",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "subnet5",
-                        "label": "Subnett",
-                        "type": 1,
-                        "value": "10.50.1.0/24",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "10.50.1.0/24"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "subnet5"
-                }
-              ],
-              "exportParameters": true
-            },
-            "customWidth": "10",
-            "name": "subnets"
-          },
-          {
-            "type": 12,
-            "content": {
-              "version": "NotebookGroup/1.0",
-              "groupType": "editable",
-              "items": [
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "a08eada8-a589-405b-b815-698e5f2c777f",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "threshold1",
-                        "label": "Threshold",
-                        "type": 1,
-                        "value": "200",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "200"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "threshold1"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "9a26e949-0c73-434f-b2ea-7ff4a1c98d2e",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "threshold2",
-                        "label": "Threshold",
-                        "type": 1,
-                        "value": "200",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "200"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "thresholds2"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "f75fcb65-e06f-4654-ba05-8e939c309348",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "threshold3",
-                        "label": "Threshold",
-                        "type": 1,
-                        "value": "200",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "200"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "thresholds3"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "25929b68-88cc-486a-b1b4-28ac65699b99",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "threshold4",
-                        "label": "Threshold",
-                        "type": 1,
-                        "value": "200",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "200"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "thresholds4"
-                },
-                {
-                  "type": 9,
-                  "content": {
-                    "version": "KqlParameterItem/1.0",
-                    "parameters": [
-                      {
-                        "id": "96e23d8f-39df-4837-b6f2-597e06b42141",
-                        "version": "KqlParameterItem/1.0",
-                        "name": "threshold5",
-                        "label": "Threshold",
-                        "type": 1,
-                        "value": "200",
-                        "criteriaData": [
-                          {
-                            "criteriaContext": {
-                              "operator": "Default",
-                              "rightValType": "param",
-                              "resultValType": "static",
-                              "resultVal": "200"
-                            }
-                          }
-                        ],
-                        "timeContext": {
-                          "durationMs": 86400000
-                        }
-                      }
-                    ],
-                    "style": "above",
-                    "queryType": 0,
-                    "resourceType": "microsoft.operationalinsights/workspaces"
-                  },
-                  "conditionalVisibility": {
-                    "parameterName": "showSubnets",
-                    "comparison": "isEqualTo",
-                    "value": "Yes"
-                  },
-                  "name": "thresholds5"
-                }
-              ],
-              "exportParameters": true
-            },
-            "customWidth": "10",
-            "name": "thresholds"
           }
         ],
         "exportParameters": true
@@ -672,7 +267,7 @@
             "id": "3db3151b-e32f-439f-b725-f6771ba56006",
             "cellValue": "selectedTab",
             "linkTarget": "parameter",
-            "linkLabel": "Common Services",
+            "linkLabel": "Services",
             "subTarget": "commonServices",
             "style": "link"
           },
@@ -680,7 +275,7 @@
             "id": "df4fb2f6-c643-4684-9a1d-e2cbdffa0a05",
             "cellValue": "selectedTab",
             "linkTarget": "parameter",
-            "linkLabel": "Inbound Services",
+            "linkLabel": "Inbound",
             "subTarget": "inboundServices",
             "style": "link"
           },
@@ -688,7 +283,7 @@
             "id": "cf42e060-65ad-4a18-8281-db41e16d90c4",
             "cellValue": "selectedTab",
             "linkTarget": "parameter",
-            "linkLabel": "Outbound Services",
+            "linkLabel": "Outbound",
             "subTarget": "outboundServices",
             "style": "link"
           },
@@ -702,7 +297,7 @@
           }
         ]
       },
-      "name": "links - 4"
+      "name": "headings"
     },
     {
       "type": 12,
@@ -1173,6 +768,483 @@
         "title": "Threat Hunting",
         "items": [
           {
+            "type": 9,
+            "content": {
+              "version": "KqlParameterItem/1.0",
+              "parameters": [
+                {
+                  "id": "8ac1e805-084d-42f5-aeca-2dcb60755bf3",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "threatHelp",
+                  "label": "Help",
+                  "type": 10,
+                  "description": "Show Threat Hunting Help",
+                  "isRequired": true,
+                  "multiSelect": true,
+                  "quote": "'",
+                  "delimiter": ",",
+                  "typeSettings": {
+                    "additionalResourceOptions": [],
+                    "showDefault": false
+                  },
+                  "jsonData": "[\r\n { \"value\": \"Yes\", \"label\": \"Yes\"},\r\n { \"value\": \"No\", \"label\": \"No\", \"selected\":\"False\" }\r\n]",
+                  "timeContext": {
+                    "durationMs": 86400000
+                  }
+                },
+                {
+                  "id": "8644dacb-a185-4af3-b77c-b031a0425191",
+                  "version": "KqlParameterItem/1.0",
+                  "name": "showSubnets",
+                  "label": "Show Subnets",
+                  "type": 10,
+                  "isRequired": true,
+                  "typeSettings": {
+                    "additionalResourceOptions": [],
+                    "showDefault": false
+                  },
+                  "jsonData": "[\r\n { \"value\": \"Yes\", \"label\": \"Yes\"},\r\n { \"value\": \"No\", \"label\": \"No\", \"selected\":\"False\" }\r\n]",
+                  "timeContext": {
+                    "durationMs": 86400000
+                  }
+                }
+              ],
+              "style": "above",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces"
+            },
+            "customWidth": "100",
+            "name": "parameters - 3"
+          },
+          {
+            "type": 1,
+            "content": {
+              "json": "# Threat Hunting\r\n\r\n## Lateral Movement\r\n\r\n- Enable the Subnets Swich.\r\n- Populate the Subnet and Thresholds fields"
+            },
+            "customWidth": "100",
+            "conditionalVisibility": {
+              "parameterName": "threatHelp",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "threatHuntingHelp"
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "loadType": "always",
+              "items": [
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "802b9223-396f-4235-a922-3ec3eaebfaa7",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "subnet1",
+                        "label": "Subnet",
+                        "type": 1,
+                        "value": "10.10.1.0/24",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "10.10.1.0/24"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "subnet1"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "4c93ce64-22d2-4419-b11d-080edd28ca72",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "subnet2",
+                        "label": "Subnet",
+                        "type": 1,
+                        "value": "10.20.1.0/24",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "10.20.1.0/24"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "subnet2"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "c4d8065f-7b78-44d5-aa84-391eff45c561",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "subnet3",
+                        "label": "Subnett",
+                        "type": 1,
+                        "value": "10.30.1.0/24",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "10.30.1.0/24"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "subnet3"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "4e93806b-64fa-4d95-af8b-683a16005702",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "subnet4",
+                        "label": "Subnett",
+                        "type": 1,
+                        "value": "10.40.1.0/24",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "10.40.1.0/24"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "subnet4"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "9023700e-fee6-4a35-8876-2623911033fb",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "subnet5",
+                        "label": "Subnett",
+                        "type": 1,
+                        "value": "10.50.1.0/24",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "10.50.1.0/24"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "subnet5"
+                }
+              ],
+              "exportParameters": true
+            },
+            "customWidth": "8",
+            "conditionalVisibility": {
+              "parameterName": "showSubnets",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "subnets"
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "items": [
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "a08eada8-a589-405b-b815-698e5f2c777f",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "threshold1",
+                        "label": "Threshold",
+                        "type": 1,
+                        "value": "200",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "200"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "threshold1"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "9a26e949-0c73-434f-b2ea-7ff4a1c98d2e",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "threshold2",
+                        "label": "Threshold",
+                        "type": 1,
+                        "value": "200",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "200"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "thresholds2"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "f75fcb65-e06f-4654-ba05-8e939c309348",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "threshold3",
+                        "label": "Threshold",
+                        "type": 1,
+                        "value": "200",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "200"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "thresholds3"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "25929b68-88cc-486a-b1b4-28ac65699b99",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "threshold4",
+                        "label": "Threshold",
+                        "type": 1,
+                        "value": "200",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "200"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "thresholds4"
+                },
+                {
+                  "type": 9,
+                  "content": {
+                    "version": "KqlParameterItem/1.0",
+                    "parameters": [
+                      {
+                        "id": "96e23d8f-39df-4837-b6f2-597e06b42141",
+                        "version": "KqlParameterItem/1.0",
+                        "name": "threshold5",
+                        "label": "Threshold",
+                        "type": 1,
+                        "value": "200",
+                        "criteriaData": [
+                          {
+                            "criteriaContext": {
+                              "operator": "Default",
+                              "rightValType": "param",
+                              "resultValType": "static",
+                              "resultVal": "200"
+                            }
+                          }
+                        ],
+                        "timeContext": {
+                          "durationMs": 86400000
+                        }
+                      }
+                    ],
+                    "style": "above",
+                    "queryType": 0,
+                    "resourceType": "microsoft.operationalinsights/workspaces"
+                  },
+                  "conditionalVisibility": {
+                    "parameterName": "showSubnets",
+                    "comparison": "isEqualTo",
+                    "value": "Yes"
+                  },
+                  "name": "thresholds5"
+                }
+              ],
+              "exportParameters": true
+            },
+            "customWidth": "8",
+            "conditionalVisibility": {
+              "parameterName": "showSubnets",
+              "comparison": "isEqualTo",
+              "value": "Yes"
+            },
+            "name": "thresholds"
+          },
+          {
             "type": 3,
             "content": {
               "version": "KqlItem/1.0",
@@ -1258,7 +1330,7 @@
               "aggregation": 4,
               "title": "Average Blocked Connetions",
               "timeContext": {
-                "durationMs": 1800000
+                "durationMs": 0
               },
               "timeContextFromParameter": "TimeRange",
               "queryType": 0,
@@ -1421,12 +1493,135 @@
         "version": "NotebookGroup/1.0",
         "groupType": "editable",
         "title": "unbound",
-        "items": []
+        "items": [
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{tableName}\r\n| where tags_s contains \"unbound\"\r\n| extend TimeGenerated = event_created_t\r\n| where client_ip_s != \"127.0.0.1\"\r\n| where isnotempty(dns_question_name_s)\r\n| summarize Hits = count() by Record = dns_question_name_s, TimeGenerated\r\n| sort by Hits",
+              "size": 3,
+              "title": "Popular Lookups",
+              "timeContext": {
+                "durationMs": 0
+              },
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "visualization": "categoricalbar",
+              "sortBy": [],
+              "tileSettings": {
+                "showBorder": false,
+                "titleContent": {
+                  "columnMatch": "dns_question_name_s",
+                  "formatter": 1
+                },
+                "leftContent": {
+                  "columnMatch": "count_",
+                  "formatter": 12,
+                  "formatOptions": {
+                    "palette": "auto"
+                  },
+                  "numberFormat": {
+                    "unit": 17,
+                    "options": {
+                      "maximumSignificantDigits": 3,
+                      "maximumFractionDigits": 2
+                    }
+                  }
+                }
+              },
+              "graphSettings": {
+                "type": 2,
+                "topContent": {
+                  "columnMatch": "dns_question_name_s",
+                  "formatter": 1
+                },
+                "centerContent": {
+                  "columnMatch": "count_",
+                  "formatter": 1,
+                  "numberFormat": {
+                    "unit": 17,
+                    "options": {
+                      "maximumSignificantDigits": 3,
+                      "maximumFractionDigits": 2
+                    }
+                  }
+                },
+                "nodeIdField": "count_",
+                "sourceIdField": "dns_question_name_s",
+                "targetIdField": "dns_question_name_s",
+                "graphOrientation": 3,
+                "showOrientationToggles": false,
+                "nodeSize": null,
+                "staticNodeSize": 100,
+                "colorSettings": {
+                  "nodeColorField": "count_",
+                  "type": 2
+                },
+                "hivesMargin": 5
+              },
+              "chartSettings": {
+                "xAxis": "TimeGenerated",
+                "group": "Record",
+                "createOtherGroup": null
+              }
+            },
+            "name": "query - 1"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{tableName}\r\n| where tags_s contains \"unbound\"\r\n| extend TimeGenerated = event_created_t\r\n| where client_ip_s != \"127.0.0.1\"\r\n| project TimeGenerated, [\"Host Name\"] = host_hostname_s, \r\n    [\"Client IP\"] = client_ip_s, \r\n    [\"Record Type\"] = dns_question_type_s, \r\n    [\"Lookup\"] = dns_question_name_s",
+              "size": 0,
+              "title": "DNS Lookups",
+              "timeContext": {
+                "durationMs": 0
+              },
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces"
+            },
+            "customWidth": "40",
+            "name": "unboundTable"
+          },
+          {
+            "type": 12,
+            "content": {
+              "version": "NotebookGroup/1.0",
+              "groupType": "editable",
+              "items": []
+            },
+            "customWidth": "10",
+            "name": "group - 3"
+          },
+          {
+            "type": 3,
+            "content": {
+              "version": "KqlItem/1.0",
+              "query": "{tableName}\r\n| where tags_s contains \"unbound\"\r\n| extend TimeGenerated = event_created_t\r\n| where client_ip_s != \"127.0.0.1\"\r\n| where isnotempty(dns_question_type_s)\r\n| summarize count() by dns_question_type_s",
+              "size": 2,
+              "title": "Record Types",
+              "timeContext": {
+                "durationMs": 0
+              },
+              "timeContextFromParameter": "TimeRange",
+              "queryType": 0,
+              "resourceType": "microsoft.operationalinsights/workspaces",
+              "visualization": "piechart"
+            },
+            "customWidth": "20",
+            "name": "recordTypes",
+            "styleSettings": {
+              "padding": "300"
+            }
+          }
+        ]
       },
       "conditionalVisibility": {
         "parameterName": "selectedTab",
         "comparison": "isEqualTo",
-        "value": "unbound"
+        "value": "dnsInformation"
       },
       "name": "unboundGroup"
     }

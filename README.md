@@ -2,6 +2,7 @@
 [![Star](https://img.shields.io/github/stars/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/stargazers) 
 [![Fork](https://img.shields.io/github/forks/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/network/members)
 [![Issues](https://img.shields.io/github/issues/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)
+[![Commmunity]()
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=plastic)](https://www.paypal.me/noodlemctwoodle)
 
@@ -15,8 +16,17 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
 
 2021.04
 
-- Added [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.2
-  - Added Tabs and split out visuals into Firewall, Unbound, Services, Inbound, Outbound, Threat Hunting.
+- Added [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.2.1
+  - Added Tabs and split out visuals:
+    - Firewall
+    - Unbound
+    - Services
+    - Inbound
+    - Outbound
+    - Threat Hunting.
+  - Added Time Slice for common services
+  - Added Unbound lookups
+  - Moved Lateral Movement and Subnets to `Threat Hunting`
 - Added ability to [drop GROK Failures](Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf) before sending to Azure Sentinel (Thanks @a3ilson)
 
 ![workbook](.images/sentinelWorkbook.gif)
