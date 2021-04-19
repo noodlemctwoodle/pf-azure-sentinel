@@ -16,6 +16,7 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
 2021.04
 
 - Added [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.1
+- Added ability to [drop GROK Failures](Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf) before sending to Azure Sentinel (Thanks @a3ilson)
 
 ![workbook](.images/sentinelWorkbook.gif)
 
