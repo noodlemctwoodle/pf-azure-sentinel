@@ -29,7 +29,7 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
   - Moved Lateral Movement and Subnets to `Threat Hunting`
 - Added ability to [drop GROK Failures](Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf) before sending to Azure Sentinel (Thanks @a3ilson)
 
-![workbook](.images/sentinelWorkbook.gif)
+![workbook](.images/workbook-0-2-1.png)
 
 2021.03
 
