@@ -16,7 +16,7 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
 
 2021.04
 
-- Added [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.2.1
+- [pfSense Workbook](KQL/pfSense/Workbook/pfSense.json) v0.2.1
   - Added Tabs and split out visuals:
     - Firewall
     - Unbound
@@ -27,9 +27,11 @@ It can be used to collect syslog messages from pfSense or OPNsense, parse them u
   - Added Time Slice for common services
   - Added Unbound lookups
   - Moved Lateral Movement and Subnets to `Threat Hunting`
-- Added ability to [drop GROK Failures](Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf) before sending to Azure Sentinel (Thanks @a3ilson)
 
-![workbook](.images/workbook-0-2-1.png)
+    ![workbook](.images/workbook-0-2-1.png)
+
+- Added pfSense Workbook v0.1
+- Added ability to [drop GROK Failures](Logstash-Configuration/etc/logstash/conf.d/45-cleanup.conf) before sending to Azure Sentinel (Thanks @a3ilson)
 
 2021.03
 
