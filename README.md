@@ -2,7 +2,7 @@
 [![Star](https://img.shields.io/github/stars/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/stargazers) 
 [![Fork](https://img.shields.io/github/forks/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/network/members)
 [![Issues](https://img.shields.io/github/issues/noodlemctwoodle/pf-azure-sentinel?style=plastic)](https://github.com/noodlemctwoodle/pf-azure-sentinel/issues)
-[![Commmunity]()
+[![Discord](https://img.shields.io/discord/833805283188277301?color=7289da&label=Discord&style=plastic)](https://img.shields.io/discord/833805283188277301?label=Discord&style=plastic)
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-blue.svg?style=plastic)](https://www.paypal.me/noodlemctwoodle)
 
